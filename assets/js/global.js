@@ -6,6 +6,8 @@
 
 "use strict";
 
+import { fetchData } from "./api.js";
+
 
 /**
  * Add event on multiple elements
@@ -20,3 +22,45 @@ window.addEventOnElements =($elements,eventTypes,callback)=>{
     }
 }
 // window.addEventOnElements 
+
+export const cardQueries =[
+    ["field","uri"],
+    ["field","label"],
+    ["field","image"],
+    ["field","totalTime"],
+]
+
+//  Skwleton card
+
+export const  $skeletoncard  = `
+<div class="card skeleton-card">
+ <div class="skeleton card-banner"></div>
+   <div class="card-body">
+     <div class="skeleton card-title"></div>
+     <div class="skeleton card-text"></div> 
+   </div>
+</div>
+`;
+
+
+// 2:34:54
+const  ROOT = "https://api.edamam.com/api/recipes/v2";
+
+window.saveRecipe = function(element ,recipeId){
+  const isSaved = window.localStorage.getItem(`cookkio-recipe${recipeId}`);
+  ACCESS_POINT = `${ROOT}/${recipeId}`;
+
+  if(!isSaved){
+    fetchData(cardQueries,function(data){
+       window.localStorage.setItem(`cookkio-recipe${recipeId}`,JSON.stringify(data));
+       element.classList.toggle("saved");
+       element.classList.toggle("removed");
+    });
+    ACCESS_POINT = ROOT;
+  }else{
+     window.localStorage.removeItem(`cookkio-recipe${recipeId}`);
+     element.classList.toggle("saved");
+     element.classList.toggle("removed");
+     
+  }
+}
