@@ -55,12 +55,26 @@ window.saveRecipe = function(element ,recipeId){
        window.localStorage.setItem(`cookkio-recipe${recipeId}`,JSON.stringify(data));
        element.classList.toggle("saved");
        element.classList.toggle("removed");
+       showNotificaton("Added to  Recipe Book")
     });
     ACCESS_POINT = ROOT;
   }else{
      window.localStorage.removeItem(`cookkio-recipe${recipeId}`);
      element.classList.toggle("saved");
      element.classList.toggle("removed");
-     
+     showNotificaton("Removed from Recipe Book")
   }
+}
+
+
+const $snackbarContainer = document.createElement("div");
+$snackbarContainer.classList.add("snackbar-container");
+document.body.appendChild($snackbarContainer);
+
+function showNotificaton(message){
+   const  $snackbar = document.createElement("div");
+   $snackbar.classList.add("snackbar");
+   $snackbar.innerHTML = `<p class="body-medium">${message}</p>`;
+   $snackbarContainer.appendChild($snackbar);
+   $snackbar.addEventListener("animationend",(e)=> $snackbarContainer.removeChild($snackbar));
 }
