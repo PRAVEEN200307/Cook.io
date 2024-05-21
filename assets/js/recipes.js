@@ -96,11 +96,11 @@ if(queries.length){
 }
 
 queryStr && queryStr.split("&").map(i =>{
-  if(i.split('=')[0] === 'q'){
+  if(i.split('=')[0] === 'q' ){
      $filterBar.querySelector("input[type='search']").value = i.split("=")[1].
      replace(/%20/g," ");
   }else{
-     $filterBar.querySelector(`[value="${i.split('=')[1].replace(/%20/g," ")}]"`).checked = true; 
+     $filterBar.querySelector(`[value="${i.split('=')[1].replace(/%20/g," ")}"]`).checked = true; 
   }
 });
 
@@ -247,8 +247,6 @@ window.addEventListener("scroll", async e =>{
 
   if(!nextPageUrl) $loadMore.innerHTML = `<p class="body-medium info-text">
   No More recipes </p>`;
-
-  
 
 
 })
